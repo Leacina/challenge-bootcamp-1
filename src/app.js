@@ -43,7 +43,7 @@ app.put("/repositories/:id", (request, response) => {
   const { title, url, techs } = request.body;
   const { id } = request.params;
 
-  const repositorieIndex = repositories.findIndex(repositorie => repositorie.id = id);
+  const repositorieIndex = repositories.findIndex(repositorie => repositorie.id === id);
 
   if(repositorieIndex < 0){
     return response.status(400).json({
@@ -71,7 +71,7 @@ app.put("/repositories/:id", (request, response) => {
 app.delete("/repositories/:id", (request, response) => {
   const { id } = request.params;
 
-  repositorieIndex = repositories.findIndex(repositorie => repositorie.id == id);
+  repositorieIndex = repositories.findIndex(repositorie => repositorie.id === id);
 
   if(repositorieIndex < 0){
     return response.status(400).json({
@@ -90,7 +90,7 @@ app.delete("/repositories/:id", (request, response) => {
 app.post("/repositories/:id/like", (request, response) => {
   const { id } = request.params;
 
-  repositorieIndex = repositories.findIndex(repositorie => repositorie.id == id);
+  repositorieIndex = repositories.findIndex(repositorie => repositorie.id === id);
 
   if(repositorieIndex < 0){
     return response.status(400).json({
@@ -100,7 +100,7 @@ app.post("/repositories/:id/like", (request, response) => {
 
   repositories[repositorieIndex].likes += 1;
 
-  return response.status(204).send();
+  return response.json(repositories[repositorieIndex]);
 });
 
 module.exports = app;
